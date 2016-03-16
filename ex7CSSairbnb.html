@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+        <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.15/themes/css/cartodb.css" />
+        <script src="http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
+        
+        <style>
+            
+            html, body {
+                height: 100%;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+                font-size:18px;
+                font-family:  Circular,"Helvetica Neue",Helvetica,sans-serif; 
+                color: dimgrey;
+                border: 0px;
+                margin-top: 5px;
+                margin-left: 100px;
+                padding: 100px;
+                justify-content: center;
+                box-sizing: border-box;
+                width:1000px;
+                    align-content: flex-start;
+                background-color:lightgrey;
+      }
+
+      #map {
+        height: 800px;
+        width: 800px;
+            
+           
+           
+          p {
+                font-size:18px;
+                color: slategray;
+               }
+            
+          a { 
+                color:salmon;
+                font-size: 18px;
+                font-family: helvetica;
+                
+            }
+            .title {
+                font-weight: bold;
+                font-size:50px;
+                font-family: helvetica; 
+                color: dimgrey;
+            }
+            #typebox {
+                outline-color: salmon;
+                color: grey;
+                border-width: 60px;
+                margin: 10px;
+                border: 5px solid salmon;
+                padding: 50px;
+                justify-content: center;
+                box-sizing: border-box;
+                background-color:papayawhip;
+            }
+           .borough-picker {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+      }
+        
+        </style>
+        
+         <script>
+             var dataLayer;
+      $(document).ready(function () {
+       
+        cartodb.createVis('map', 'https://xavis637.cartodb.com/api/v2/viz/f373e852-da82-11e5-b937-0ea31932ec1d/viz.json')
+           .done(function (vis, layers) {
+            // Store the data layer for later:
+            //  * layers[0] is the base layer (eg OpenStreetMap)
+            //  * layers[1] is where all of your data layers go, and they're stored as "sublayers". The first one is numbered 0, the second is 1, etc. In this case we're getting the first sublayer.
+            dataLayer = layers[1].getSubLayer(0);
+          });
+
+        //
+        // Initialize the borough picker: add an event handler to watch for changes
+        //
+        $('.borough-picker').change(function () {
+          var borough = $(this).val();
+          var sql;
+          if (borough === 'all') {
+            // if borough is 'all', reset SQL to the original
+            sql = "SELECT * FROM listings";
+          }
+          else {
+            // else, select only features with the borough field set to the chosen borough
+            sql = "SELECT * FROM listings WHERE borough = '" + borough + "'";
+          }
+          dataLayer.setSQL(sql);
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <div id="map"></div>
+    <select class="borough-picker">
+      <option value="all">All boroughs</option>
+      <option value="Bronx">Bronx</option>
+      <option value="Brooklyn">Brooklyn</option>
+      <option value="Manhattam">Manhattan</option>
+      <option value="Queens">Queens</option>
+      <option value="Staten Island">Staten Island</option>
+      <option value="">other</option>
+    </select>
+  </body>
+    
+    <body>
+  
+        <div class= title>
+           <strong> ABOUT INSIDE <span style= "color: salmon";> AIRBNB </span> </strong>
+      </div>
+            <br />
+             <br />
+       Inside Airbnb is an independent, non-commercial set of tools and data that allows you to explore how Airbnb is really being used in cities around the world. 
+            <br/>
+            <br/>
+            By analyzing publicly available information about a city's Airbnb's listings, Inside Airbnb provides filters and key metrics so you can see how Airbnb is being used to compete with the residential housing market.
+            <br />
+             <br />
+           See the <a  href="http://insideairbnb.com/new-york-city/"> Inside Airbnb page </a> and check the  
+            <a href="http://insideairbnb.com/get-the-data.html">  data </a> available for download.
+            <br />
+             <br />
+        
+      
+               
+              <br/>                 
+    </body>
+    
+      <div id="map"></div>
+    
+    
+</html>
