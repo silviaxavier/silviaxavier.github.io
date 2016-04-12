@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+<script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+    <!--
+    Load CartoDB's code so we can pull in our CartoDB maps.
+    -->
+    <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.15/themes/css/cartodb.css" />
+    <script src="http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
+    
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+      }
+
+      #map {
+        height: 100%;
+        width: 100%;
+      }
+    </style>
+
+    <script>
+     
+      $(document).ready(function () {
+        cartodb.createVis('map', 'https://thenewschool.cartodb.com/u/silviaxavier/api/v2/viz/942b675e-ee2c-11e5-960b-0e787de82d45/viz.json')
+          .done(function () {
+          
+                     $.getJSON('https://rawgit.com/ebrelsford/geojson-examples/master/bids.geojson')
+              .done(function (data) {
+                var dataLayer = L.geoJson(data);
+                dataLayer.addTo(vis.getNativeMap());
+              })
+          });
+      });
+    </script>
+  </head>
+  <body>
+    <div id="map"></div>
+  </body>
+</html>
