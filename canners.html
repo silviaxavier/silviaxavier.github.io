@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+  <head>
+<script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+      <meta charset="utf-8">
+      <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.15/themes/css/cartodb.css" />
+        <script src="http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
+    
+    <style>
+      html, body {
+        height: 100%;
+        margin: 10px;
+        padding: 10px;
+        width: 1200px;
+          background-color:black;
+          font-family:  Circular,"Helvetica Neue",Helvetica,sans-serif; 
+                color: white;
+      }
+
+     #map {
+          border: 0px;
+                margin-top: 0px;
+                margin-left: 0px;
+                padding: 0px;
+                width:0px;
+        height: 1000px;
+        width: 100%;
+           }
+        
+     #map1 {
+          border: 0px;
+                margin-top: 50px;
+                margin-left: 0px;
+                padding: 0px;
+                width:0px;
+        height: 1000px;
+        width: 100%;
+           }  
+     
+      #map2 {
+          border: 0px;
+                margin-top: 50px;
+                margin-left: 0px;
+                padding: 0px;
+                width:0px;
+        height: 1000px;
+        width: 100%;
+           }
+      
+     div.cartodb-popup.v2 div.cartodb-popup-content-wrapper {
+        background: black;
+       width:200px
+      }
+      
+      div.cartodb-popup.v2:before {
+        border-top-color: black;
+      }
+      
+      div.cartodb-popup p {
+        color: white;
+      }
+    </style>
+    
+   <script type="infowindow/html" id="infowindow_template">
+      <div class="cartodb-popup v2">
+        <a href="#close" class="cartodb-popup-close-button close">x</a>
+         <div class="cartodb-popup-content-wrapper">
+           <div class="cartodb-popup-content">
+             <iframe width="450" height="450" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/263840057&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true"></iframe>
+           </div>
+         </div>
+         <div class="cartodb-popup-tip-container"></div>
+      </div>
+    </script>
+
+
+    <script>
+             var dataLayer;
+                $(document).ready(function () {
+               cartodb.createVis('map', 'https://xavis637.cartodb.com/api/v2/viz/5a346274-e4ab-11e5-9257-0e787de82d45/viz.json')
+           .done(function (vis, layers) {
+            dataLayer = layers[1].getSubLayer(0);
+                 
+                dataLayer.infowindow.set('template', $('#infowindow_template').html());
+                 
+                 dataLayer.infowindow.set('sanitizeTemplate', 'false');
+                 
+          });
+          });
+      
+      
+        </script>
+    
+    <script>
+    $(document).ready(function () {
+    var url = 'https://xavis637.cartodb.com/api/v2/sql?' + $.param({
+    q: 'SELECT SUM(cans) FROM eugeneonewithnumbers'
+  });
+    $.getJSON(url)
+         .done(function (data) {
+      $('.sumcans').text(data.rows[0].sum);
+    });
+});
+     </script>
+    
+    <script>
+    $(document).ready(function () {
+    var url = 'https://xavis637.cartodb.com/api/v2/sql?' + $.param({
+    q: 'SELECT SUM(glass) FROM eugeneonewithnumbers'
+  });
+    $.getJSON(url)
+         .done(function (data) {
+      $('.sumglass').text(data.rows[0].sum);
+    });
+});
+     </script>
+    
+    <script>
+    $(document).ready(function () {
+    var url = 'https://xavis637.cartodb.com/api/v2/sql?' + $.param({
+    q: 'SELECT SUM(plastic) FROM eugeneonewithnumbers'
+  });
+    $.getJSON(url)
+         .done(function (data) {
+      $('.sumplastic').text(data.rows[0].sum);
+    });
+});
+     </script>
+    
+      
+       <script>
+             var dataLayer;
+                $(document).ready(function () {
+               cartodb.createVis('map1', 'https://xavis637.cartodb.com/api/v2/viz/ba44a4fa-0e70-11e6-837c-0ecfd53eb7d3/viz.json')
+           .done(function (vis, layers) {
+            dataLayer = layers[1].getSubLayer(0);
+          });
+          });
+        </script>
+      
+                      <script>
+             var dataLayer;
+                $(document).ready(function () {
+               cartodb.createVis('map2', 'https://xavis637.cartodb.com/api/v2/viz/ce13b64e-1233-11e6-9d93-0ea31932ec1d/viz.json')
+           .done(function (vis, layers) {
+            dataLayer = layers[1].getSubLayer(0);
+          });
+          });
+        </script>                     
+                    
+                  
+  </head>
+  <body>
+       <br/>
+       <strong> <span style= font-size:60px; font-family: Circular, "Helvetica Neue", Helvetica, sans-serif;>  CANNING STORIES IN NEW YORK CITY </span>  </strong>
+      <br />
+    <p style= font-size:20px; font-family: Circular, "Helvetica Neue", Helvetica, sans-serif;>Canners walk the streets of New York collecting cans and bottles to be redeemed, which means to exchange them for five cents each, in authorized redemption centers. They often go unnoticed and unheard. Here is an effort to document this system, recording not only quantities, but also interactions and stories.  </p>
+    
+    <br/>
+    <span style= font-size:20px; font-family: Circular, "Helvetica Neue", Helvetica, sans-serif; font-color: black;>
+    On 03.16.2016, Eugene collected <span class="sumcans" style= font-size:30px></span>
+   
+    cans, <span class="sumplastic" style= font-size:30px></span> plastic bottles, and <span class="sumglass" style= font-size:30px></span> glass bottles.
+    </span>
+      
+  </body>
+    
+    <div id="map"></div>
+  
+  <div>
+     <p style= font-size:20px; font-family: Circular, "Helvetica Neue", Helvetica, sans-serif;>
+      The data collection happened using a GPS app, which tracked the canners' path. The quantities and types of materials collected were recorded in paper. Then the data exported from the GPS was edited in QGIS to record the locations of collection.
+      <br/>
+         <br/>
+      One dataset is complete so far. The other recorded tracks will be updated soon.</p>
+  </div>
+
+      <div id="map1"></div>
+      <div id="map2"></div>
+    
+</html>
